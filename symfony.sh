@@ -14,8 +14,8 @@ sudo apt-get update
 sudo apt-get install -y curl git vim make software-properties-common
 
 # Install PHP and common extensions
-sudo apt-get -y install php8.2-cli
-sudo apt-get install -y php8.2-{mysql,xml,bcmath,bz2,intl,mbstring,mysql,zip,common,curl,gmp,fpm}
+sudo apt-get -y install php8.1-cli
+sudo apt-get install -y php8.1-{mysql,xml,bcmath,bz2,intl,mbstring,mysql,zip,common,curl,gmp,fpm}
 
 # Install composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -44,16 +44,16 @@ composer install --no-interaction
 # Make migration
 php bin/console doctrine:schema:update --force
 
-sudo systemctl stop apache2
-sudo systemctl disbale apache2
-sudo apt-get purge -y apache2
-sudo apt-get autoremove
+# sudo systemctl stop apache2
+# sudo systemctl disbale apache2
+# sudo apt-get purge -y apache2
+# sudo apt-get -y autoremove
 
 # Install nginx
 sudo apt-get install -y nginx
 # copy the configuration
-cp ~/nginx.conf /etc/nginx/sites-available
-sudo ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
+cp -f ~/nginx.conf /etc/nginx/sites-enabled/default
 sudo service nginx restart
+sudo service nginx reload
 
 echo "Done!!";
