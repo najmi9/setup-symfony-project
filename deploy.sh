@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the IP address of the remote server
-SERVER_IP="172.105.251.121"
+SERVER_IP="194.195.244.130"
 
 # Set the SSH username and password for the remote server
 SSH_USER="root"

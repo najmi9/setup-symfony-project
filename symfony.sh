@@ -1,5 +1,4 @@
 #!/bin/bash
-
 database_name=dev
 github_token=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
 repo_name=symfony
@@ -33,21 +32,16 @@ echo "GRANT ALL PRIVILEGES ON $database_name.* TO 'user'@'localhost'" | sudo mys
 echo "FLUSH PRIVILEGES" | sudo mysql -u root;
 
 # Donwload github code
+mkdir -p /usr/share/nginx/html
 cd /usr/share/nginx/html
 git clone https://$github_token@github.com/najmi9/$repo_name symfony
 cd symfony
-git pull
 echo "DATABASE_URL=mysql://user:$sql_password@localhost:3306/$database_name" > .env.local
 
 # Install symfony dependencies
 composer install --no-interaction
 # Make migration
 php bin/console doctrine:schema:update --force
-
-# sudo systemctl stop apache2
-# sudo systemctl disbale apache2
-# sudo apt-get purge -y apache2
-# sudo apt-get -y autoremove
 
 # Install nginx
 sudo apt-get install -y nginx
